@@ -1,0 +1,6 @@
+@Essence_B_HostAddress = http://localhost:5218
+
+GET {{Essence_B_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,37 @@
+﻿using Essence_B.Models.Domain.notes;
+using Essence_B.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Essence_B.Controllers
+{
+    [Route("api/notes")]
+    [ApiController]
+    public class NotesController : ControllerBase
+    {
+        private readonly INoteRepository noteRepository;
+        public NotesController(INoteRepository note)
+        {
+            this.noteRepository = note;
+        }
+        [Route("getNotes")]
+        [HttpGet]
+        public async Task<IActionResult> getNotes()
+        {
+            List<NoteDto> response = new List<NoteDto>();
+            response = noteRepository.getNotes();
+            return Ok(response);
+        }
+        [Route("getNoteTypes")]
+        [HttpPost]
+        public async Task<IActionResult> getNoteTypes()
+        {
+            return Ok(noteRepository.getNoteTypes());  
+        }
+        [Route("getOrigins")]
+        [HttpPost]
+        public async Task<IActionResult> getHouses()
+        {
+            return Ok(noteRepository.getHouses());
+        }
+    }
+}
