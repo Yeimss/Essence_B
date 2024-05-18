@@ -22,16 +22,22 @@ namespace Essence_B.Controllers
             return Ok(response);
         }
         [Route("getNoteTypes")]
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> getNoteTypes()
         {
             return Ok(noteRepository.getNoteTypes());  
         }
         [Route("getOrigins")]
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> getHouses()
         {
             return Ok(noteRepository.getHouses());
+        }
+        [Route("getGenders")]
+        [HttpGet]
+        public async Task<IActionResult> getGenders()
+        {
+            return Ok(noteRepository.getGenders());
         }
     }
 }

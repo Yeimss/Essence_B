@@ -1,5 +1,6 @@
 ﻿using Essence_B.Models.DB;
 using Essence_B.Models.Domain.notes;
+using Essence_B.Models.Domain.Perfums;
 using Essence_B.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,6 +59,39 @@ namespace Essence_B.Repositories.Implementation
                     casa.House = item.House;
                     casa.IdOrigin = item.IdOrigin;
                     list.Add(casa);
+                }
+            }
+            return list;
+        }
+
+        public List<GenderDto> getGenders()
+        {
+            List<GenderDto> list = new List<GenderDto>();
+            var notas = dbContext.TbGenders.ToListAsync();
+            if (notas.Result.Count > 0)
+            {
+                foreach (var item in notas.Result)
+                {
+                    GenderDto genero = new GenderDto();
+                    genero.IdGender = item.IdGender;
+                    genero.Gender = item.Gender;
+                    list.Add(genero);
+                }
+            }
+            return list;
+        }
+        public List<ConcentrationDto> getConcentrations()
+        {
+            List<ConcentrationDto> list = new List<ConcentrationDto>();
+            var notas = dbContext.TbConcentrations.ToListAsync();
+            if (notas.Result.Count > 0)
+            {
+                foreach (var item in notas.Result)
+                {
+                    ConcentrationDto concentration = new ConcentrationDto();
+                    concentration.IdConcentration = item.IdConcentration;
+                    concentration.Concentration = item.Concentration;
+                    list.Add(concentration);
                 }
             }
             return list;
