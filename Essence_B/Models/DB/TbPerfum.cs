@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Essence_B.Models.DB;
 
-public partial class TbPerfum
+public partial class Tbperfum
 {
     public int IdPerfum { get; set; }
 
@@ -15,19 +15,25 @@ public partial class TbPerfum
 
     public short? IdGender { get; set; }
 
+    public short? IdOrigin { get; set; }
+
     public bool? Status { get; set; }
 
     public string? Description { get; set; }
 
     public short? IdConcentration { get; set; }
 
-    public virtual TbConcentration? IdConcentrationNavigation { get; set; }
+    public virtual Tbconcentration? IdConcentrationNavigation { get; set; }
 
-    public virtual TbGender? IdGenderNavigation { get; set; }
+    public virtual Tbgender? IdGenderNavigation { get; set; }
 
-    public virtual TbHouse? IdHouseNavigation { get; set; }
+    public virtual Tbhouse? IdHouseNavigation { get; set; }
 
-    public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
+    public virtual Tborigin? IdOriginNavigation { get; set; }
 
-    public virtual ICollection<TbPerfumNote> TbPerfumNotes { get; set; } = new List<TbPerfumNote>();
+    public virtual ICollection<TbperfumNote> TbperfumNotes { get; set; } = new List<TbperfumNote>();
+
+    public virtual ICollection<TbperfumSize> TbperfumSizes { get; set; } = new List<TbperfumSize>();
+
+    public virtual ICollection<Tbsale> Tbsales { get; set; } = new List<Tbsale>();
 }

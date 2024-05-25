@@ -1,4 +1,4 @@
-﻿using Essence_B.Models.DB;
+﻿//using Essence_B.Models.DB;
 using Essence_B.Models.Domain.notes;
 using Essence_B.Models.Domain.Perfums;
 using Essence_B.Repositories.Implementation;
@@ -12,5 +12,6 @@ namespace Essence_B.Repositories.Interfaces
         List<NoteDto> getNotes();
         List<HousesDto> getHouses();
         List<GenderDto> getGenders();
+        List<SizeDto> getSizes();
     }
 }

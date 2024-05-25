@@ -39,5 +39,11 @@ namespace Essence_B.Controllers
         {
             return Ok(noteRepository.getGenders());
         }
+        [Route("getSizes")]
+        [HttpGet]
+        public async Task<IActionResult> getSizes()
+        {
+            return Ok(noteRepository.getSizes());
+        }
     }
 }

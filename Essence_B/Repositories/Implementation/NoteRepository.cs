@@ -17,7 +17,7 @@ namespace Essence_B.Repositories.Implementation
         public List<NoteTypeDto> getNoteTypes()
         {
             List<NoteTypeDto> list = new List<NoteTypeDto>();
-            var notas = dbContext.TbNoteTypes.ToListAsync();
+            var notas = dbContext.TbnoteTypes.ToListAsync();
             if(notas.Result.Count > 0)
             {
                 foreach (var item in notas.Result)
@@ -33,7 +33,7 @@ namespace Essence_B.Repositories.Implementation
         public List<NoteDto> getNotes()
         {
             List<NoteDto> list = new List<NoteDto>();
-            var notas = dbContext.TbNotes.ToListAsync();
+            var notas = dbContext.Tbnotes.ToListAsync();
             if (notas.Result.Count > 0)
             {
                 foreach (var item in notas.Result)
@@ -49,7 +49,7 @@ namespace Essence_B.Repositories.Implementation
         public List<HousesDto> getHouses()
         {
             List<HousesDto> list = new List<HousesDto>();
-            var notas = dbContext.TbHouses.ToListAsync();
+            var notas = dbContext.Tbhouses.ToListAsync();
             if (notas.Result.Count > 0)
             {
                 foreach (var item in notas.Result)
@@ -67,7 +67,7 @@ namespace Essence_B.Repositories.Implementation
         public List<GenderDto> getGenders()
         {
             List<GenderDto> list = new List<GenderDto>();
-            var notas = dbContext.TbGenders.ToListAsync();
+            var notas = dbContext.Tbgenders.ToListAsync();
             if (notas.Result.Count > 0)
             {
                 foreach (var item in notas.Result)
@@ -83,7 +83,7 @@ namespace Essence_B.Repositories.Implementation
         public List<ConcentrationDto> getConcentrations()
         {
             List<ConcentrationDto> list = new List<ConcentrationDto>();
-            var notas = dbContext.TbConcentrations.ToListAsync();
+            var notas = dbContext.Tbconcentrations.ToListAsync();
             if (notas.Result.Count > 0)
             {
                 foreach (var item in notas.Result)
@@ -92,6 +92,22 @@ namespace Essence_B.Repositories.Implementation
                     concentration.IdConcentration = item.IdConcentration;
                     concentration.Concentration = item.Concentration;
                     list.Add(concentration);
+                }
+            }
+            return list;
+        }
+        public List<SizeDto> getSizes()
+        {
+            List<SizeDto> list = new List<SizeDto>();
+            var notas = dbContext.Tbsizes.ToListAsync();
+            if (notas.Result.Count > 0)
+            {
+                foreach (var item in notas.Result)
+                {
+                    SizeDto size = new SizeDto();
+                    size.IdSize = item.IdSize;
+                    size.Size = item.Size;
+                    list.Add(size);
                 }
             }
             return list;

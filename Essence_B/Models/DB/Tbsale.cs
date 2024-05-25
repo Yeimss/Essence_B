@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Essence_B.Models.DB;
 
-public partial class Sale
+public partial class Tbsale
 {
     public int IdSale { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Sale
 
     public int? IdUser { get; set; }
 
-    public virtual TbPerfum? IdPerfumNavigation { get; set; }
+    public virtual Tbperfum? IdPerfumNavigation { get; set; }
 
-    public virtual TbUser? IdUserNavigation { get; set; }
+    public virtual Tbuser? IdUserNavigation { get; set; }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Essence_B.Models.DB;
 
-public partial class TbPerfumNote
+public partial class TbperfumNote
 {
     public int IdPerfum { get; set; }
 
@@ -13,9 +13,9 @@ public partial class TbPerfumNote
 
     public decimal? Price { get; set; }
 
-    public virtual TbNote IdNoteNavigation { get; set; } = null!;
+    public virtual Tbnote IdNoteNavigation { get; set; } = null!;
 
-    public virtual TbNoteType IdNoteTypeNavigation { get; set; } = null!;
+    public virtual TbnoteType IdNoteTypeNavigation { get; set; } = null!;
 
-    public virtual TbPerfum IdPerfumNavigation { get; set; } = null!;
+    public virtual Tbperfum IdPerfumNavigation { get; set; } = null!;
 }
