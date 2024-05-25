@@ -13,5 +13,6 @@ namespace Essence_B.Repositories.Interfaces
         List<HousesDto> getHouses();
         List<GenderDto> getGenders();
         List<SizeDto> getSizes();
+        List<ConcentrationDto> getConcentrations();
     }
 }

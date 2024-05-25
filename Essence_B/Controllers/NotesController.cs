@@ -45,5 +45,11 @@ namespace Essence_B.Controllers
         {
             return Ok(noteRepository.getSizes());
         }
+        [Route("getConcentrations")]
+        [HttpGet]
+        public async Task<IActionResult> getConcentrations()
+        {
+            return Ok(noteRepository.getConcentrations());
+        }
     }
 }
