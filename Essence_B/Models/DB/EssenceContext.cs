@@ -31,8 +31,6 @@ public partial class EssenceContext : DbContext
 
     public virtual DbSet<TbperfumNote> TbperfumNotes { get; set; }
 
-    public virtual DbSet<TbperfumSize> TbperfumSizes { get; set; }
-
     public virtual DbSet<Tbrol> Tbrols { get; set; }
 
     public virtual DbSet<Tbsale> Tbsales { get; set; }
@@ -49,7 +47,7 @@ public partial class EssenceContext : DbContext
     {
         modelBuilder.Entity<Tbconcentration>(entity =>
         {
-            entity.HasKey(e => e.IdConcentration).HasName("PK__TBConcen__DF3630ACE066B5E4");
+            entity.HasKey(e => e.IdConcentration).HasName("PK__TBConcen__DF3630AC563C9CC7");
 
             entity.ToTable("TBConcentration");
 
@@ -62,7 +60,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tbgender>(entity =>
         {
-            entity.HasKey(e => e.IdGender).HasName("PK__TBGender__85D20780D0FC7E07");
+            entity.HasKey(e => e.IdGender).HasName("PK__TBGender__85D207807CFD4774");
 
             entity.ToTable("TBGenders");
 
@@ -75,7 +73,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tbhouse>(entity =>
         {
-            entity.HasKey(e => e.IdHouse).HasName("PK__TBHouses__AF515CBF3BB8CEE6");
+            entity.HasKey(e => e.IdHouse).HasName("PK__TBHouses__AF515CBF06E9DFF6");
 
             entity.ToTable("TBHouses");
 
@@ -93,7 +91,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tbnote>(entity =>
         {
-            entity.HasKey(e => e.IdNote).HasName("PK__TBNotes__AD5F462A3183AAF4");
+            entity.HasKey(e => e.IdNote).HasName("PK__TBNotes__AD5F462A3150464C");
 
             entity.ToTable("TBNotes");
 
@@ -106,7 +104,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<TbnoteType>(entity =>
         {
-            entity.HasKey(e => e.IdNoteType).HasName("PK__TBNoteTy__B5A3DA07E6F9FB5F");
+            entity.HasKey(e => e.IdNoteType).HasName("PK__TBNoteTy__B5A3DA07B151EAE6");
 
             entity.ToTable("TBNoteTypes");
 
@@ -119,7 +117,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tborigin>(entity =>
         {
-            entity.HasKey(e => e.IdOrigin).HasName("PK__TBOrigin__9F19086AA0C052D6");
+            entity.HasKey(e => e.IdOrigin).HasName("PK__TBOrigin__9F19086AE6A9CED3");
 
             entity.ToTable("TBOrigins");
 
@@ -132,7 +130,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tbperfum>(entity =>
         {
-            entity.HasKey(e => e.IdPerfum).HasName("PK__TBPerfum__40F3E060DFF29C72");
+            entity.HasKey(e => e.IdPerfum).HasName("PK__TBPerfum__40F3E0609A28FBA1");
 
             entity.ToTable("TBPerfums");
 
@@ -149,7 +147,10 @@ public partial class EssenceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("name");
-            entity.Property(e => e.Size).HasColumnName("size");
+            entity.Property(e => e.Photo)
+                .HasMaxLength(3000)
+                .IsUnicode(false)
+                .HasColumnName("photo");
             entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.IdConcentrationNavigation).WithMany(p => p.Tbperfums)
@@ -167,11 +168,30 @@ public partial class EssenceContext : DbContext
             entity.HasOne(d => d.IdOriginNavigation).WithMany(p => p.Tbperfums)
                 .HasForeignKey(d => d.IdOrigin)
                 .HasConstraintName("FK_Perfums_Origins");
+
+            entity.HasMany(d => d.IdSizes).WithMany(p => p.IdPerfums)
+                .UsingEntity<Dictionary<string, object>>(
+                    "TbperfumSize",
+                    r => r.HasOne<Tbsize>().WithMany()
+                        .HasForeignKey("IdSize")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Size_Perfum"),
+                    l => l.HasOne<Tbperfum>().WithMany()
+                        .HasForeignKey("IdPerfum")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Perfum_PerfumSize"),
+                    j =>
+                    {
+                        j.HasKey("IdPerfum", "IdSize").HasName("PK__TBPerfum__EC9A1A6506CC1730");
+                        j.ToTable("TBPerfum_Size");
+                        j.IndexerProperty<int>("IdPerfum").HasColumnName("idPerfum");
+                        j.IndexerProperty<short>("IdSize").HasColumnName("idSize");
+                    });
         });
 
         modelBuilder.Entity<TbperfumNote>(entity =>
         {
-            entity.HasKey(e => new { e.IdPerfum, e.IdNote, e.IdNoteType }).HasName("PK__TBPerfum__FC93B7D81F1B5A91");
+            entity.HasKey(e => new { e.IdPerfum, e.IdNote, e.IdNoteType }).HasName("PK__TBPerfum__FC93B7D8A6044DC8");
 
             entity.ToTable("TBPerfum_Note");
 
@@ -196,31 +216,9 @@ public partial class EssenceContext : DbContext
                 .HasConstraintName("FK_Perfum_PerfumNote");
         });
 
-        modelBuilder.Entity<TbperfumSize>(entity =>
-        {
-            entity.HasKey(e => new { e.IdPerfum, e.IdSize }).HasName("PK__TBPerfum__EC9A1A65B313D6DD");
-
-            entity.ToTable("TBPerfum_Size");
-
-            entity.Property(e => e.IdPerfum).HasColumnName("idPerfum");
-            entity.Property(e => e.IdSize).HasColumnName("idSize");
-            entity.Property(e => e.IdNoteType).HasColumnName("idNoteType");
-            entity.Property(e => e.Price).HasColumnType("money");
-
-            entity.HasOne(d => d.IdPerfumNavigation).WithMany(p => p.TbperfumSizes)
-                .HasForeignKey(d => d.IdPerfum)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Perfum_PerfumSize");
-
-            entity.HasOne(d => d.IdSizeNavigation).WithMany(p => p.TbperfumSizes)
-                .HasForeignKey(d => d.IdSize)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Size_Perfum");
-        });
-
         modelBuilder.Entity<Tbrol>(entity =>
         {
-            entity.HasKey(e => e.IdRol).HasName("PK__TBRols__3C872F76AAA776AC");
+            entity.HasKey(e => e.IdRol).HasName("PK__TBRols__3C872F765F6FA3A9");
 
             entity.ToTable("TBRols");
 
@@ -233,7 +231,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tbsale>(entity =>
         {
-            entity.HasKey(e => e.IdSale).HasName("PK__TBSales__C4AEB19865B6DB53");
+            entity.HasKey(e => e.IdSale).HasName("PK__TBSales__C4AEB198A7684E5F");
 
             entity.ToTable("TBSales");
 
@@ -260,7 +258,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tbsize>(entity =>
         {
-            entity.HasKey(e => e.IdSize).HasName("PK__TBSizes__C69FA05BCAA97309");
+            entity.HasKey(e => e.IdSize).HasName("PK__TBSizes__C69FA05B59078756");
 
             entity.ToTable("TBSizes");
 
@@ -270,7 +268,7 @@ public partial class EssenceContext : DbContext
 
         modelBuilder.Entity<Tbuser>(entity =>
         {
-            entity.HasKey(e => e.IdUser).HasName("PK__TBUsers__3717C98284A0D095");
+            entity.HasKey(e => e.IdUser).HasName("PK__TBUsers__3717C9822418D3B5");
 
             entity.ToTable("TBUsers");
 

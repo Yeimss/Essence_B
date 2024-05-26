@@ -9,8 +9,6 @@ public partial class Tbperfum
 
     public string Name { get; set; } = null!;
 
-    public int Size { get; set; }
-
     public int? IdHouse { get; set; }
 
     public short? IdGender { get; set; }
@@ -18,6 +16,8 @@ public partial class Tbperfum
     public short? IdOrigin { get; set; }
 
     public bool? Status { get; set; }
+
+    public string? Photo { get; set; }
 
     public string? Description { get; set; }
 
@@ -33,7 +33,7 @@ public partial class Tbperfum
 
     public virtual ICollection<TbperfumNote> TbperfumNotes { get; set; } = new List<TbperfumNote>();
 
-    public virtual ICollection<TbperfumSize> TbperfumSizes { get; set; } = new List<TbperfumSize>();
-
     public virtual ICollection<Tbsale> Tbsales { get; set; } = new List<Tbsale>();
+
+    public virtual ICollection<Tbsize> IdSizes { get; set; } = new List<Tbsize>();
 }

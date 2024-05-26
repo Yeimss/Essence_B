@@ -9,5 +9,5 @@ public partial class Tbsize
 
     public int? Size { get; set; }
 
-    public virtual ICollection<TbperfumSize> TbperfumSizes { get; set; } = new List<TbperfumSize>();
+    public virtual ICollection<Tbperfum> IdPerfums { get; set; } = new List<Tbperfum>();
 }
