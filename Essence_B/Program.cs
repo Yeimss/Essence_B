@@ -19,6 +19,7 @@ builder.Services.AddDbContext<EssenceContext>(options =>
 });
 
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<IPerfumRepository, PerfumRepository>();
 
 builder.Services.AddCors(options =>
 {
