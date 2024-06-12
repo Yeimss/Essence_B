@@ -11,7 +11,7 @@ namespace Essence_B.Repositories.Implementation
         public PerfumRepository(EssenceContext _dbContext) {
             dbContext = _dbContext;
         }
-        public bool InsertPerfum(PerfumDto perfum)
+        public async Task<bool> InsertPerfum(PerfumDto perfum)
         {
             try
             {
@@ -29,8 +29,8 @@ namespace Essence_B.Repositories.Implementation
                 tbperfum.IdConcentration = perfum.IdConcentration;
                 tbperfum.IdConcentrationNavigation = dbContext.Tbconcentrations.FirstOrDefault(e => e.IdConcentration == perfum.IdConcentration);
 
-                dbContext.Tbperfums.AddAsync(tbperfum);
-                dbContext.SaveChangesAsync();
+                var res = await dbContext.Tbperfums.AddAsync(tbperfum);
+                await dbContext.SaveChangesAsync();
                 return true;
             }
             catch
@@ -38,9 +38,15 @@ namespace Essence_B.Repositories.Implementation
                 return false;
             }
         }
-        public List<PerfumDto> getActivePerfums()
+        public object? searchPerfum(PerfumDto perfum)
         {
-            List<PerfumDto> list = new List<PerfumDto>();
+            Tbperfum? perfume = new Tbperfum();
+            perfume = dbContext.Tbperfums.FirstOrDefault(e => e.IdHouse == perfum.IdHouse && e.Name == perfum.Name && e.IdOrigin == perfum.IdOrigin && e.IdConcentration == perfum.IdConcentration);
+            return perfume;
+        }
+        public List<object> getActivePerfums()
+        {
+            List<object> list = new List<object>();
             var perfums = dbContext.Tbperfums.Where(per => per.Status == true);
             if (perfums.Count() > 0)
             {

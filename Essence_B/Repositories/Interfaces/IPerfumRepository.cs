@@ -1,12 +1,13 @@
-﻿using Essence_B.Models.Domain.Perfums;
+﻿using Essence_B.Models.DB;
+using Essence_B.Models.Domain.Perfums;
 
 namespace Essence_B.Repositories.Interfaces
 {
     public interface IPerfumRepository
     {
-        bool InsertPerfum(PerfumDto perfum);
-        List<PerfumDto> getActivePerfums();
+        Task<bool> InsertPerfum(PerfumDto perfum);
+        object? searchPerfum(PerfumDto perfum);
+        List<object> getActivePerfums();
         List<object> getAllPerfums();
-
     }
 }

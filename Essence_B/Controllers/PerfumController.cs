@@ -19,12 +19,12 @@ namespace Essence_B.Controllers
 
         [HttpPost]
         [Route("InsertPerfum")]
-        public IActionResult InsertPerfum(PerfumDto perfum)
+        public async Task<IActionResult> InsertPerfumAsync(PerfumDto perfum)
         {
-            if (perfumRepository.InsertPerfum(perfum))
+            if (await perfumRepository.InsertPerfum(perfum))
             {
                 //la idea es buscar aqui mismo el id del perfume que se acabo de ingresar para devolverlo e ingresar las notas y los tamanios
-                ResponseDto response = new ResponseDto(true, "Insertado Correctamente");
+                ResponseDto response = new ResponseDto(true, "Insertado Correctamente"/*, (List<object>?)perfumRepository.searchPerfum(perfum)*/);
                 return Ok(response);
             }
             else
