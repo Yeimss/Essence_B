@@ -6,7 +6,7 @@ namespace Essence_B.Repositories.Interfaces
     public interface IPerfumRepository
     {
         Task<bool> InsertPerfum(PerfumDto perfum);
-        object? searchPerfum(PerfumDto perfum);
+        int? searchIdPerfum(PerfumDto perfum);
         List<object> getActivePerfums();
         List<object> getAllPerfums();
     }

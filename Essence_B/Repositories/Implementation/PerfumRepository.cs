@@ -38,11 +38,11 @@ namespace Essence_B.Repositories.Implementation
                 return false;
             }
         }
-        public object? searchPerfum(PerfumDto perfum)
+        public int? searchIdPerfum(PerfumDto perfum)
         {
             Tbperfum? perfume = new Tbperfum();
             perfume = dbContext.Tbperfums.FirstOrDefault(e => e.IdHouse == perfum.IdHouse && e.Name == perfum.Name && e.IdOrigin == perfum.IdOrigin && e.IdConcentration == perfum.IdConcentration);
-            return perfume;
+            return perfume?.IdPerfum;
         }
         public List<object> getActivePerfums()
         {

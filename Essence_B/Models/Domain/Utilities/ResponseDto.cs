@@ -4,8 +4,8 @@
     {
         public bool status { get; set; }
         public string? messagge { get; set; }
-        public List<object>? data { get; set; }
-        public ResponseDto(bool st, string msj, List<object>? dt = null) { 
+        public dynamic? data { get; set; }
+        public ResponseDto(bool st, string msj, dynamic? dt = null) { 
             status =st;
             messagge = msj;
             data = dt;

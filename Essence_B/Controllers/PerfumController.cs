@@ -23,8 +23,7 @@ namespace Essence_B.Controllers
         {
             if (await perfumRepository.InsertPerfum(perfum))
             {
-                //la idea es buscar aqui mismo el id del perfume que se acabo de ingresar para devolverlo e ingresar las notas y los tamanios
-                ResponseDto response = new ResponseDto(true, "Insertado Correctamente"/*, (List<object>?)perfumRepository.searchPerfum(perfum)*/);
+                ResponseDto response = new ResponseDto(true, "Insertado Correctamente", perfumRepository.searchIdPerfum(perfum));
                 return Ok(response);
             }
             else
@@ -39,16 +38,18 @@ namespace Essence_B.Controllers
         {
             List<object> perfums = new List<object>();
             perfums = perfumRepository.getAllPerfums();
-            if (perfums.Count != 0)
-            {
-                ResponseDto response = new ResponseDto(true, "Insertado Correctamente", perfums);
-                return Ok(response);
-            }
-            else
-            {
-                ResponseDto response = new ResponseDto(false, "No se encontraron registros");
-                return NotFound(response);
-            }
+            return Ok(perfums);
+
+            //if (perfums.Count != 0)
+            //{
+            //    ResponseDto response = new ResponseDto(true, "Insertado Correctamente", perfums);
+            //    return Ok(response);
+            //}
+            //else
+            //{
+            //    ResponseDto response = new ResponseDto(false, "No se encontraron registros");
+            //    return NotFound(response);
+            //}
         }
     }
 }
