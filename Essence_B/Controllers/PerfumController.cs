@@ -19,11 +19,26 @@ namespace Essence_B.Controllers
 
         [HttpPost]
         [Route("InsertPerfum")]
-        public async Task<IActionResult> InsertPerfumAsync(PerfumDto perfum)
+        public async Task<IActionResult> InsertPerfum(PerfumDto perfum)
         {
             if (await perfumRepository.InsertPerfum(perfum))
             {
                 ResponseDto response = new ResponseDto(true, "Insertado Correctamente", perfumRepository.searchIdPerfum(perfum));
+                return Ok(response);
+            }
+            else
+            {
+                ResponseDto response = new ResponseDto(false, "Error al insertar el perfume");
+                return BadRequest(response);
+            }
+        }
+        [HttpPost]
+        [Route("InsertPerfumNote")]
+        public async Task<IActionResult> InsertPerfumNote(PerfumNote dto)
+        {
+            if (await perfumRepository.InsertPerfumNote(dto))
+            {
+                ResponseDto response = new ResponseDto(true, "Insertado Correctamente");
                 return Ok(response);
             }
             else
@@ -38,18 +53,11 @@ namespace Essence_B.Controllers
         {
             List<object> perfums = new List<object>();
             perfums = perfumRepository.getAllPerfums();
-            return Ok(perfums);
-
-            //if (perfums.Count != 0)
-            //{
-            //    ResponseDto response = new ResponseDto(true, "Insertado Correctamente", perfums);
-            //    return Ok(response);
-            //}
-            //else
-            //{
-            //    ResponseDto response = new ResponseDto(false, "No se encontraron registros");
-            //    return NotFound(response);
-            //}
+            if (perfums.ToArray().Length != 0)
+            {
+                return Ok(perfums);
+            }
+            return NotFound(new ResponseDto(false, "No se encontró información"));
         }
     }
 }

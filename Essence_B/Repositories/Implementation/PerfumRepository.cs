@@ -83,10 +83,31 @@ namespace Essence_B.Repositories.Implementation
                     perfum.Photo = item.Photo;
                     perfum.Description = item.Description;
                     perfum.IdConcentration = item.IdConcentration;
+                    //perfum.price = item.pri
                     list.Add(perfum);
                 }
             }
             return list;
+        }
+        public async Task<bool> InsertPerfumNote(PerfumNote dto)
+        {
+            try
+            {
+                TbperfumNote tbperfum = new TbperfumNote();
+                tbperfum.IdPerfum = dto.IdPerfum;
+                tbperfum.IdPerfumNavigation = dbContext.Tbperfums.FirstOrDefault(e => e.IdPerfum == dto.IdPerfum);
+                tbperfum.IdNote = dto.IdNote;
+                tbperfum.IdNoteNavigation = dbContext.Tbnotes.FirstOrDefault(e => e.IdNote == dto.IdNote);
+                tbperfum.IdNoteType = dto.IdNoteType;
+                tbperfum.IdNoteTypeNavigation = dbContext.TbnoteTypes.FirstOrDefault(e => e.IdNoteType == dto.IdNoteType);
+                var res = await dbContext.TbperfumNotes.AddAsync(tbperfum);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

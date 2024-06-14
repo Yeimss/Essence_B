@@ -17,5 +17,6 @@
         public string? Description { get; set; }
 
         public short? IdConcentration { get; set; }
+        public double? price { get; set; }
     }
 }

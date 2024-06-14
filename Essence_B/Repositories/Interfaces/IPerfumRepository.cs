@@ -9,5 +9,6 @@ namespace Essence_B.Repositories.Interfaces
         int? searchIdPerfum(PerfumDto perfum);
         List<object> getActivePerfums();
         List<object> getAllPerfums();
+        Task<bool> InsertPerfumNote(PerfumNote dto);
     }
 }
